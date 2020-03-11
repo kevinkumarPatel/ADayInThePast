@@ -13,6 +13,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Background;
@@ -32,20 +34,17 @@ import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 
 public class map extends Application
-{
-	private double moveX, moveY = 45;
-	private double newX, newY = 45;
-	
-
+{	
 	    @Override
 	    public void start(Stage primaryStage) {
+	    	
 	    	Text text = new Text();
 	    	primaryStage.setTitle("Grid World");
 	    	GridPane grid = new GridPane();
 	    	Pane backgroundcolor = new Pane();
 	    	Rectangle tree = new Rectangle(90, 45, 45, 90);
 	    	Rectangle character = new Rectangle(135, 180, 45, 45);
-	    	Circle boulder = new Circle(0,0,45);
+	    	Circle boulder = new Circle(0,0,45);	    	
 	    	
 	    	character.setFill(Color.DARKSALMON);
 	        tree.setFill(Color.BROWN);
@@ -74,28 +73,36 @@ public class map extends Application
 	    	
 	    	
 	    	//gamescene.setOnKeyPressed(event -> text.setText(event.getCode().toString()));
-	      
-	    	gamescene.setOnKeyPressed(event -> {
+	      gamescene.setOnKeyPressed(new EventHandler<KeyEvent>() {
+
+			@Override
+			public void handle(KeyEvent event) {
+				
 	    		if(event.getCode() == KeyCode.RIGHT) {
-	                newX = character.getX() - moveX;
-	    			character.setTranslateX(newX);
+	    			double moveX = character.getX();
+	    			moveX = moveX + 45;
+	    			character.setX(moveX);
 	    		}
-	    		if(event.getCode() == KeyCode.LEFT){
-	                newX = character.getX() + moveX;
-	                character.setTranslateX(newX);
+	    		else if(event.getCode() == KeyCode.LEFT){
+	    			double moveX = character.getX();
+		    		moveX = moveX - 45;	                
+		    		character.setX(moveX);
 	            }
-	            if(event.getCode() == KeyCode.UP) {
-	                newY = character.getY() - moveY;
-	                character.setTranslateY(newY);
+	    		else if(event.getCode() == KeyCode.UP) {
+		    		double moveY = character.getY();
+	            	moveY = moveY - 45;
+	                character.setY(moveY);
 	            }
-	            if(event.getCode() == KeyCode.DOWN){
-	                newY = character.getY() + moveY;
-	                character.setTranslateY(newY);
+	    		else if(event.getCode() == KeyCode.DOWN){
+		    		double moveY = character.getY();
+	            	moveY = moveY + 45;
+	                character.setY(moveY);
 	            }
-	    		
-	    	});
+			}
+	    	  
+	      });
 	    	
-	    	gamescene.setOnKeyReleased(event -> text.setText(""));
+	    	//gamescene.setOnKeyReleased(event -> new EventHandler<KeyEvent>());
 	    	
 	        primaryStage.setScene(gamescene);
 	        primaryStage.show();
