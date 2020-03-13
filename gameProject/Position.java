@@ -23,10 +23,10 @@ public class Position extends Character{
 	public void isOpenUp(){
 		this.charDirection = "Up";
 		try {
-			if (this.checkPos(this.getX(),  this.getY() + 1) == this.OPEN || this.checkPos(this.getX(), this.getY() + 1) == this.EXIT ||
-					this.checkPos(this.getX(), this.getY() + 1) == this.POWERUP || this.checkPos(this.getX(), this.getY() + 1) == this.EVIDENCE){
+			if (this.checkPos(this.getX(),  this.getY() - 1) == this.OPEN || this.checkPos(this.getX(), this.getY() - 1) == this.EXIT ||
+					this.checkPos(this.getX(), this.getY() - 1) == this.POWERUP || this.checkPos(this.getX(), this.getY() - 1) == this.EVIDENCE){
 				this.moveUp();
-				this.charPosition = currentMap[this.getX()][this.getY() + 1];
+				this.charPosition = currentMap[this.getX()][this.getY() - 1];
 			}
 			else {
 				System.out.println("Cannot go there!");
@@ -40,10 +40,10 @@ public class Position extends Character{
 	public void isOpenDown(){
 		this.charDirection = "Down";
 		try {
-			if (this.checkPos(this.getX(),  this.getY() - 1) == this.OPEN || this.checkPos(this.getX(), this.getY() - 1) == this.EXIT ||
-					this.checkPos(this.getX(), this.getY() - 1) == this.POWERUP || this.checkPos(this.getX(), this.getY() - 1) == this.EVIDENCE){
+			if (this.checkPos(this.getX(),  this.getY() + 1) == this.OPEN || this.checkPos(this.getX(), this.getY() + 1) == this.EXIT ||
+					this.checkPos(this.getX(), this.getY() + 1) == this.POWERUP || this.checkPos(this.getX(), this.getY() + 1) == this.EVIDENCE){
 				this.moveDown();
-				this.charPosition = currentMap[this.getX()][this.getY() - 1];
+				this.charPosition = currentMap[this.getX()][this.getY() + 1];
 			}
 			else {
 				System.out.println("Cannot go there!");
@@ -60,7 +60,7 @@ public class Position extends Character{
 			if (this.checkPos(this.getX() + 1, this.getY()) == this.OPEN || this.checkPos(this.getX() + 1, this.getY()) == this.EXIT || 
 					this.checkPos(this.getX() + 1, this.getY()) == this.POWERUP || this.checkPos(this.getX() + 1, this.getY()) == this.EVIDENCE){
 				this.moveRight();
-				this.charPosition = currentMap[this.getX()+ 1][this.getY()];
+				this.charPosition = currentMap[this.getX() + 1][this.getY()];
 			}
 			else {
 				System.out.println("Cannot go there!");

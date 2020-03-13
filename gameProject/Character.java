@@ -24,12 +24,12 @@ public class Character extends Map{
 
 	//makes character move up
 	public void moveUp(){
-		this.charY++;
+		this.charY--;
 	}
 
 	//makes character move down
 	public void moveDown(){
-		this.charY--;
+		this.charY++;
 	}
 
 	//makes character move left
@@ -63,14 +63,14 @@ public class Character extends Map{
 	//that player is facing, and if valid, cuts down a tree
 	public void cutTree(){
 		if ((this.getDirection()).equalsIgnoreCase("Up")){
-			if (this.currentMap[this.getX()][this.getY() + 1] == this.TREE){
-				this.currentMap[this.getX()][this.getY() + 1] = this.OPEN;
+			if (this.currentMap[this.getX()][this.getY() - 1] == this.TREE){
+				this.currentMap[this.getX()][this.getY() - 1] = this.OPEN;
 				System.out.println("You've cut down a tree!");
 			}
 		}
 		else if ((this.getDirection()).equalsIgnoreCase("Down")){
-			if (this.currentMap[this.getX()][this.getY() - 1] == this.TREE){
-				this.currentMap[this.getX()][this.getY() - 1] = this.OPEN;
+			if (this.currentMap[this.getX()][this.getY() + 1] == this.TREE){
+				this.currentMap[this.getX()][this.getY() + 1] = this.OPEN;
 				System.out.println("You've cut down a tree!");
 			}
 		}

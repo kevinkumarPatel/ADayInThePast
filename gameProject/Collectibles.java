@@ -4,6 +4,11 @@ public class Collectibles extends Position{
 	public Collectibles(String charName, String charGender) {
 		super(charName, charGender);
 	}
+	
+	public int[][] getCurrentMap() {
+		return this.currentMap;
+	}
+	
 	//checks if evidence is picked up, if so calls gotCollectible()
 	//function from character to signal that a collectible was collected
 	public void gotEvidence(){

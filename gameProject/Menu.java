@@ -1,7 +1,6 @@
 package gameProject;
 
 import javafx.application.Application;
-import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -15,21 +14,23 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.FlowPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.Pane;
-import javafx.scene.shape.Rectangle;
-import javafx.scene.layout.BackgroundFill;
-import javafx.scene.layout.RowConstraints;
-import javafx.scene.layout.ColumnConstraints;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.CornerRadii;
+import javafx.scene.layout.FlowPane;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
+import javafx.scene.layout.RowConstraints;
+import javafx.scene.layout.StackPane;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Circle;
+import javafx.scene.shape.Rectangle;
+import javafx.scene.text.Text;
 
 public class Menu extends Application{
 	//GUI instance variables
@@ -45,7 +46,7 @@ public class Menu extends Application{
 	Label finishedCheck = new Label("Are you finished creating your character?");
 	Stage primaryStage = new Stage();
 	
-	//class objects
+	//class object
 	Controller player1 = new Controller(defaultAttribute, defaultAttribute);
 	
 	//GUI start. Following code was taken and modified from Assignment 6
@@ -106,6 +107,7 @@ public class Menu extends Application{
 		HBox continueRow = new HBox();
 		continueYes.setOnAction(new EventHandler<ActionEvent>(){
 			public void handle(ActionEvent e) {
+				player1.startMap();
 				player1.gameLoop();
 			}
 		});
