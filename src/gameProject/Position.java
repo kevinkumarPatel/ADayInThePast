@@ -29,7 +29,10 @@ public class Position extends Character{
 				this.charPosition = currentMap[this.getX()][this.getY() - 1];
 			}
 			else {
-				System.out.println("Cannot go there!");
+			}
+			if (this.isDone()) {
+				this.currentMap = this.reachedExit();
+				System.out.println(this.currentMap);
 			}
 		}
 		catch(Exception ArrayIndexOutOfBounds){
@@ -46,7 +49,10 @@ public class Position extends Character{
 				this.charPosition = currentMap[this.getX()][this.getY() + 1];
 			}
 			else {
-				System.out.println("Cannot go there!");
+			}
+			if (this.isDone()) {
+				this.currentMap = this.reachedExit();
+				System.out.println(this.currentMap);
 			}
 		}
 		catch(Exception ArrayIndexOutOfBounds) {
@@ -63,7 +69,10 @@ public class Position extends Character{
 				this.charPosition = currentMap[this.getX() + 1][this.getY()];
 			}
 			else {
-				System.out.println("Cannot go there!");
+			}
+			if (this.isDone()) {
+				this.currentMap = this.reachedExit();
+				System.out.println(this.currentMap);
 			}
 		}
 		catch(Exception ArrayIndexOutOfBounds) {
@@ -80,7 +89,6 @@ public class Position extends Character{
 				this.charPosition = currentMap[this.getX() - 1][this.getY()];
 			}
 			else {
-				System.out.println("Cannot go there!");
 			}
 		}
 		catch(Exception ArrayIndexOutOfBounds) {
@@ -90,7 +98,7 @@ public class Position extends Character{
 	//checks if the character has exited the level, is so changes isDone variable
 	//in game class to be true, loading the next map
 	public boolean isDone(){
-		if(this.checkPos(super.getX(), super.getY()) == this.EXIT){
+		if(this.currentMap[this.getX()][this.getY()] == this.EXIT){
 			return true;
 		}
 		else {

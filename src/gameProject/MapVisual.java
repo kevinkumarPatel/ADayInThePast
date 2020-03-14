@@ -35,6 +35,7 @@ import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 import java.util.Timer;
 import java.util.TimerTask;
+import javafx.scene.paint.ImagePattern;
 
 public class MapVisual extends Application
 {	
@@ -48,15 +49,22 @@ public class MapVisual extends Application
 	Pane backGroundPane;
 	StackPane gamePane;
 	Scene mainScene;
+	Image charSprite = new Image("CHARACTER.png");
+	Image groundSprite = new Image("GRASS.png");
+	Image powerUpSprite = new Image("POWERUP.png");
+	Image wallSprite = new Image("WALL.jpg");
+	Image treeSprite = new Image("TREE.png");
+	Image boulderSprite = new Image("BOULDER.png");
+	Image evidenceSprite = new Image("EVIDENCE.png");
+	Image exitSprite = new Image("EXIT.png");
 	
 	@Override
 	public void start(Stage primaryStage) {
-				this.mainStage = primaryStage;
-			    this.mainStage.setTitle("Grid World");
-			    
-			    this.mainStage.setScene(this.makeScene(this.charX, this.charY));
-			    this.mainStage.show();        
-			}
+		this.mainStage = primaryStage;
+		this.mainStage.setTitle("Grid World"); 
+		this.mainStage.setScene(this.makeScene(this.charX, this.charY));
+		this.mainStage.show();        
+	}
 
 	int BOULDER = -1;
 	int TREE = -2;
@@ -95,23 +103,43 @@ public class MapVisual extends Application
 	    	for (int columns = 0; columns < mapdesign()[rows].length; columns++) {
 	           if (mapdesign()[rows][columns] == TREE) {
 	           		Rectangle treeBlock = new Rectangle(rows * 45, columns * 45, 45, 45);
-	           		treeBlock.setFill(Color.BROWN);
+	           		treeBlock.setFill(new ImagePattern(this.treeSprite));
 	           		backGroundPane.getChildren().add(treeBlock);
-	           	}
-	            else if (mapdesign()[rows][columns] == POWERUP) {
+	           }
+	           else if (mapdesign()[rows][columns] == EXIT) {
+	           		Rectangle exitBlock = new Rectangle(rows * 45, columns * 45, 45, 45);
+	           		exitBlock.setFill(new ImagePattern(this.exitSprite));
+	           		backGroundPane.getChildren().add(exitBlock);
+	           }
+	           else if (mapdesign()[rows][columns] == EVIDENCE) {
+	           		Rectangle exitBlock = new Rectangle(rows * 45, columns * 45, 45, 45);
+	           		exitBlock.setFill(new ImagePattern(this.evidenceSprite));
+	           		backGroundPane.getChildren().add(exitBlock);
+	           }
+	           else if (mapdesign()[rows][columns] == WALL) {
+	           		Rectangle wallBlock = new Rectangle(rows * 45, columns * 45, 45, 45);
+	           		wallBlock.setFill(new ImagePattern(this.wallSprite));
+	           		backGroundPane.getChildren().add(wallBlock);
+	           }
+	           else if (mapdesign()[rows][columns] == POWERUP) {
 	           		Circle powerupBlock = new Circle(rows * 45 + 22.5, columns * 45 + 22.5, 22.5);
-	           		powerupBlock.setFill(Color.CORNFLOWERBLUE);
+	           		powerupBlock.setFill(new ImagePattern(this.powerUpSprite));
 	           		backGroundPane.getChildren().add(powerupBlock);
-	           	}
-	            else if (mapdesign()[rows][columns] == OPEN || mapdesign()[rows][columns] == EVIDENCE) {
+	           }
+	           else if (mapdesign()[rows][columns] == BOULDER) {
+	           		Circle boulderBlock = new Circle(rows * 45 + 22.5, columns * 45 + 22.5, 22.5);
+	           		boulderBlock.setFill(new ImagePattern(this.boulderSprite));
+	           		backGroundPane.getChildren().add(boulderBlock);
+	           }
+	           if (mapdesign()[rows][columns] == OPEN || mapdesign()[rows][columns] == EVIDENCE) {
 	            	if (rows == charX && columns == charY) {
 	    			   Rectangle character = new Rectangle(rows * 45, columns * 45, 45, 45);	    	
-	    			   character.setFill(Color.DARKSALMON);
+	    			   character.setFill(new ImagePattern(this.charSprite));
 	    			   backGroundPane.getChildren().add(character);
 	            	}
 	            	else {
 	            	}
-	            }
+	           }
 	    	
 	    	}
 	    }
@@ -119,7 +147,7 @@ public class MapVisual extends Application
 	    int rows = mapdesign().length; // row
 	    int columns = mapdesign()[0].length; // col
 	    mainGrid.setBackground(new Background(new BackgroundFill(Color.TRANSPARENT, CornerRadii.EMPTY, Insets.EMPTY)));
-        backGroundPane.setBackground(new Background(new BackgroundFill(Color.GREEN, CornerRadii.EMPTY, Insets.EMPTY)));
+        backGroundPane.setBackground(new Background(new BackgroundFill(new ImagePattern(groundSprite), CornerRadii.EMPTY, Insets.EMPTY)));
             
         for (int i = 0; i < columns; i++) {
             ColumnConstraints columnn = new ColumnConstraints(45);
@@ -130,12 +158,12 @@ public class MapVisual extends Application
             mainGrid.getRowConstraints().add(row);
         }
         
-        mainGrid.setGridLinesVisible(true);
+        mainGrid.setGridLinesVisible(false);
         
 	   	StackPane gamePane = new StackPane();
 	    gamePane.getChildren().addAll(backGroundPane, mainGrid);
         
-        Scene gamescene = new Scene(gamePane, 45 * rows ,45 *columns, Color.GREEN);
+        Scene gamescene = new Scene(gamePane, 45 * rows, 45 * columns, Color.GREEN);
         mainScene = gamescene;
 	    
         return mainScene;

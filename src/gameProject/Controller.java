@@ -47,6 +47,11 @@ public class Controller{
 		    		player1.isOpenRight();
 		    		player1.gotPowerUp();
 		    		showMap.loadMap(player1.getCurrentMap(), player1.getX(), player1.getY());
+					if (player1.isDone()) {
+						player1.charX = 2;
+						player1.charY = 2;
+						player1.currentMap = player1.reachedExit();
+					}
 		    		try{
 		    			Thread.sleep(200);
 		    			gameLoop();
@@ -58,6 +63,12 @@ public class Controller{
 		    		player1.isOpenLeft();
 		    		player1.gotPowerUp();
 		    		showMap.loadMap(player1.getCurrentMap(), player1.getX(), player1.getY());
+					if (player1.isDone()) {
+						player1.charX = 2;
+						player1.charY = 2;
+						player1.currentMap = player1.reachedExit();
+						System.out.println("EXIT");
+					}
 		    		try{
 		    			Thread.sleep(200);
 		    			gameLoop();
@@ -69,6 +80,12 @@ public class Controller{
 		    		player1.isOpenUp();
 		    		player1.gotPowerUp();
 		    		showMap.loadMap(player1.getCurrentMap(), player1.getX(), player1.getY());
+					if (player1.isDone()) {
+						player1.charX = 2;
+						player1.charY = 2;
+						player1.currentMap = player1.reachedExit();
+						System.out.println("EXIT");
+					}
 		    		try{
 		    			Thread.sleep(200);
 		    			gameLoop();
@@ -80,6 +97,12 @@ public class Controller{
 		    		player1.isOpenDown();
 		    		player1.gotPowerUp();
 		    		showMap.loadMap(player1.getCurrentMap(), player1.getX(), player1.getY());
+					if (player1.isDone()) {
+						player1.charX = 2;
+						player1.charY = 2;
+						player1.currentMap = player1.reachedExit();
+			    		showMap.loadMap(player1.getCurrentMap(), player1.getX(), player1.getY());
+					}
 		    		try{
 		    			Thread.sleep(200);
 		    			gameLoop();

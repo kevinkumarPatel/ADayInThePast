@@ -65,25 +65,21 @@ public class Character extends Map{
 		if ((this.getDirection()).equalsIgnoreCase("Up")){
 			if (this.currentMap[this.getX()][this.getY() - 1] == this.TREE){
 				this.currentMap[this.getX()][this.getY() - 1] = this.OPEN;
-				System.out.println("You've cut down a tree!");
 			}
 		}
 		else if ((this.getDirection()).equalsIgnoreCase("Down")){
 			if (this.currentMap[this.getX()][this.getY() + 1] == this.TREE){
 				this.currentMap[this.getX()][this.getY() + 1] = this.OPEN;
-				System.out.println("You've cut down a tree!");
 			}
 		}
 		else if ((this.getDirection()).equalsIgnoreCase("Left")){
 			if (this.currentMap[this.getX() - 1][this.getY()] == this.TREE){
 				this.currentMap[this.getX() - 1][this.getY()] = this.OPEN;
-				System.out.println("You've cut down a tree!");
 			}
 		}
 		else if ((this.getDirection()).equalsIgnoreCase("Right")){
 			if (this.currentMap[this.getX() + 1][this.getY()] == this.TREE){
 				this.currentMap[this.getX() + 1][this.getY()] = this. OPEN;
-				System.out.println("You've cut down a tree!");
 			}
 		}
 	}
