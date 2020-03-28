@@ -1,5 +1,6 @@
-package gameProject;
+package menuGUI;
 
+import keyBindController.Controller;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;

@@ -1,5 +1,6 @@
-package gameProject;
+package GUI;
 
+import characterMovement.Character;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -36,14 +37,14 @@ import javafx.scene.text.Text;
 import java.util.Timer;
 import java.util.TimerTask;
 import javafx.scene.paint.ImagePattern;
+import javafx.scene.layout.VBox;
 
 public class MapVisual extends Application
 {	
-	Map startMap = new Map();
-	Character startPos = new Character(null, null);	
-	int charX = startPos.getX();
-	int charY = startPos.getY();
-	int[][] loadedMap = startMap.getMap();
+	Character charStartPos = new Character(null, null);	
+	int charX = charStartPos.getX();
+	int charY = charStartPos.getY();
+	int[][] loadedMap;
 	public Stage mainStage;
 	GridPane mainGrid;
 	Pane backGroundPane;
@@ -57,6 +58,10 @@ public class MapVisual extends Application
 	Image boulderSprite = new Image("BOULDER.png");
 	Image evidenceSprite = new Image("EVIDENCE.png");
 	Image exitSprite = new Image("EXIT.png");
+	
+	public void setInitialMap(int[][] map) {
+		this.loadedMap = map;
+	}
 	
 	@Override
 	public void start(Stage primaryStage) {
@@ -81,6 +86,10 @@ public class MapVisual extends Application
 		(this.getStage()).setScene(this.makeScene(this.charX, this.charY));
 	}
 	
+	public void gameOver(String message) {
+		(this.getStage()).setScene(this.makeScene(message));
+	}
+	
 	public StackPane getPane() {
 		return new StackPane();
 	}
@@ -91,6 +100,11 @@ public class MapVisual extends Application
 	
 	public Scene getScene() {
 		return this.mainScene;
+	}
+	
+	public Scene makeScene(String message) {
+		System.out.println(message);
+		return new Scene(new Pane(), 300, 300, Color.BLACK);
 	}
 	
 	public Scene makeScene(int charX, int charY) {
@@ -131,7 +145,9 @@ public class MapVisual extends Application
 	           		boulderBlock.setFill(new ImagePattern(this.boulderSprite));
 	           		backGroundPane.getChildren().add(boulderBlock);
 	           }
-	           if (mapdesign()[rows][columns] == OPEN || mapdesign()[rows][columns] == EVIDENCE) {
+
+	           if (mapdesign()[rows][columns] == OPEN || mapdesign()[rows][columns] == EVIDENCE || 
+	           	   mapdesign()[rows][columns] == POWERUP) {
 	            	if (rows == charX && columns == charY) {
 	    			   Rectangle character = new Rectangle(rows * 45, columns * 45, 45, 45);	    	
 	    			   character.setFill(new ImagePattern(this.charSprite));
@@ -147,7 +163,7 @@ public class MapVisual extends Application
 	    int rows = mapdesign().length; // row
 	    int columns = mapdesign()[0].length; // col
 	    mainGrid.setBackground(new Background(new BackgroundFill(Color.TRANSPARENT, CornerRadii.EMPTY, Insets.EMPTY)));
-        backGroundPane.setBackground(new Background(new BackgroundFill(new ImagePattern(groundSprite), CornerRadii.EMPTY, Insets.EMPTY)));
+        backGroundPane.setBackground(new Background(new BackgroundFill(new ImagePattern(this.groundSprite), CornerRadii.EMPTY, Insets.EMPTY)));
             
         for (int i = 0; i < columns; i++) {
             ColumnConstraints columnn = new ColumnConstraints(45);

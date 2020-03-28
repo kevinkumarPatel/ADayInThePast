@@ -1,16 +1,15 @@
-package gameProject;
+package characterMovement;
 
 //class contains instance variables relating to 
 //information about player, as well as Game object
 //so that functions and variables from game can be used
 public class Character extends Map{
-	int[][] currentMap = this.getMap();
+	int[][] currentMap = super.getMap();
 	String charDirection = "Up";
 	int evidenceCount = 0;
 	String charName;
 	String charGender;
 	int health = 7;
-	int attackPower = 1;
 	int charY = 2;
 	int charX = 2;
 
@@ -42,14 +41,13 @@ public class Character extends Map{
 		this.charX++;
 	}
 
-	//increases player stats when called. Checks if
+	//increases player health when called. Checks if
 	//cutFlag is false, to ensure it only happens once,
 	//and that the character has powered up 3 times, and if 
 	//both conditions are true, cutFlag will be made true so
 	//the character can now cut
 	public void powerUp(){
 		System.out.println("You've powered up!");
-		this.attackPower++;
 		this.health++;
 	}
 
@@ -84,19 +82,64 @@ public class Character extends Map{
 		}
 	}
 	
+	public void setBlock(int xPos, int yPos, int status) {
+		this.currentMap[xPos][yPos] = status;
+	}
+	
 	public String getDirection() {
 		return this.charDirection;
+	}
+	
+	public void setDirection(String direction) {
+		this.charDirection = direction;
+	}
+	
+	public int returnOpen() {
+		return this.OPEN;
+	}
+	
+	public int returnEvidence() {
+		return this.EVIDENCE;
+	}
+	
+	public int returnPowerUp() {
+		return this.POWERUP;
+	}
+	
+	public int returnExit() {
+		return this.EXIT;
+	}
+	
+	public int returnFinished() {
+		return this.FINISHED;
 	}
 	
 	public int getY() {
 		return this.charY;
 	}
 	
+	public void setY(int yPos) {
+		this.charY = yPos;
+	}
+	
 	public int getX() {
 		return this.charX;
 	}
 	
-	public int[][] getCharMap(){
+	public void setX(int xPos) {
+		this.charX = xPos;
+	}
+	
+	public int getEvidenceCount() {
+		return this.evidenceCount;
+	}
+	
+	@Override
+	public int[][] getMap(){
 		return this.currentMap;
+	}
+	
+	public void setMap(int[][] aMap) {
+		this.currentMap = aMap;
 	}
 }

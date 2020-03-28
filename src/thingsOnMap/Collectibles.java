@@ -1,20 +1,16 @@
-package gameProject;
+package thingsOnMap;
 
 public class Collectibles extends Position{
 	public Collectibles(String charName, String charGender) {
 		super(charName, charGender);
 	}
 	
-	public int[][] getCurrentMap() {
-		return this.currentMap;
-	}
-	
 	//checks if evidence is picked up, if so calls gotCollectible()
 	//function from character to signal that a collectible was collected
 	public void gotEvidence(){
-		if (this.currentMap[this.getX()][this.getY()] == this.EVIDENCE){
-			this.currentMap[this.getX()][this.getY()] = this.OPEN;
-			super.gotCollectible();
+		if (this.charPosition == player1.returnEvidence()){
+			player1.setBlock(player1.getX(), player1.getY(), player1.returnOpen());
+			player1.gotCollectible();
 		}
 		else {
 			System.out.println("Nothing but dirt...");
@@ -24,9 +20,17 @@ public class Collectibles extends Position{
 	//checks if a power up is picked up, is so calls powerUp() 
 	//method from character to raise character stats
 	public void gotPowerUp(){
-		if (this.currentMap[this.getX()][this.getY()] == this.POWERUP){
-			this.currentMap[this.getX()][this.getY()] = this.OPEN;
-			super.powerUp();
+		if (this.charPosition == player1.returnPowerUp()){
+			player1.setBlock(player1.getX(), player1.getY(), player1.returnOpen());
+			player1.powerUp();
 		}
+	}
+	
+	public int getEvidenceCount() {
+		return player1.getEvidenceCount();
+	}
+	
+	public void cutTree() {
+		player1.cutTree();
 	}
 }
