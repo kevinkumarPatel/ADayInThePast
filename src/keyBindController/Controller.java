@@ -13,9 +13,12 @@ import javafx.scene.input.KeyEvent;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 
-//Game class has all map constants through object m,
-//map is assigned to map1 so that the first level if played
-//first
+/**
+ * @author Filip Cotra, Theodore Lun
+ * Controller class is key binded control that calls methods 
+ * from other classes based on input to allow interaction with
+ * and exploration of the map
+ */
 public class Controller{
 	boolean characterDone = false;
 	String charGender;
@@ -23,18 +26,26 @@ public class Controller{
 	MapVisual showMap = new MapVisual();
 	Collectibles player1;
 	
+	/**
+	 * Constructor creates object of collectibles to allow
+	 * access to other methods
+	 */
 	public Controller(String name, String gender) {
 		this.player1 = new Collectibles(name, gender);
 	}
 	
+	/**
+	 * sets initial map and starts initial application
+	 */
 	public void startMap() {
 		showMap.setInitialMap(player1.getMap());
 		showMap.start(new Stage());
 	}
-	//loop that the game will go through, repeatedly
-	//asking for input from the player to move until the level is finished,
-	//at which point a new map will be loaded
 	
+	/**loop that the game will go through, repeatedly
+	 *asking for input from the player to move until the level is finished,
+	 *at which point a new map will be loaded
+	 */
 	public void gameLoop() {
 		showMap.loadMap(player1.getMap(), player1.getX(), player1.getY());
 		if (player1.isFinished()) {
@@ -47,7 +58,6 @@ public class Controller{
 			
 		}
 		else {
-	    	//gamescene.setOnKeyPressed(event -> text.setText(event.getCode().toString()));
 		    (showMap.getScene()).setOnKeyPressed(new EventHandler<KeyEvent>() {
 				@Override
 				public void handle(KeyEvent event) {		
@@ -55,13 +65,8 @@ public class Controller{
 			    		player1.isOpenRight();
 			    		player1.gotPowerUp();
 			    		showMap.loadMap(player1.getMap(), player1.getX(), player1.getY());
-						//if (player1.isDone()) {
-							//player1.charX = 2;
-							//player1.charY = 2;
-							//player1.currentMap = player1.reachedExit(); 
-						//}
 			    		try{
-			    			Thread.sleep(200);
+			    			Thread.sleep(player1.getDelay());
 			    			gameLoop();
 			    		}
 			    		catch(InterruptedException ex) {
@@ -71,13 +76,8 @@ public class Controller{
 			    		player1.isOpenLeft();
 			    		player1.gotPowerUp();
 			    		showMap.loadMap(player1.getMap(), player1.getX(), player1.getY());
-						//if (player1.isDone()) {
-							//player1.charX = 2;
-							//player1.charY = 2;
-							//player1.currentMap = player1.reachedExit();
-						//}
 			    		try{
-			    			Thread.sleep(200);
+			    			Thread.sleep(player1.getDelay());
 			    			gameLoop();
 			    		}
 			    		catch(InterruptedException ex) {
@@ -87,13 +87,8 @@ public class Controller{
 			    		player1.isOpenUp();
 			    		player1.gotPowerUp();
 			    		showMap.loadMap(player1.getMap(), player1.getX(), player1.getY());
-						//if (player1.isDone()) {
-							//player1.charX = 2;
-							//player1.charY = 2;
-							//player1.currentMap = player1.reachedExit();
-						//}
 			    		try{
-			    			Thread.sleep(200);
+			    			Thread.sleep(player1.getDelay());
 			    			gameLoop();
 			    		}
 			    		catch(InterruptedException ex) {
@@ -103,14 +98,8 @@ public class Controller{
 			    		player1.isOpenDown();
 			    		player1.gotPowerUp();
 			    		showMap.loadMap(player1.getMap(), player1.getX(), player1.getY());
-						//if (player1.isDone()) {
-							///player1.setX(2);
-							//player1.setY(2);
-							//player1.setMap(player1.reachedExit());
-				    		//showMap.loadMap(player1.getMap(), player1.getX(), player1.getY());
-						//}
 			    		try{
-			    			Thread.sleep(200);
+			    			Thread.sleep(player1.getDelay());
 			    			gameLoop();
 			    		}
 			    		catch(InterruptedException ex) {
@@ -131,22 +120,43 @@ public class Controller{
 		}
 	}
 	
+	/**
+	 * returns character name entered
+	 * @return
+	 */
 	public String getName() {
 		return this.charName;
 	}
 	
+	/**
+	 * returns character gender selected
+	 * @return
+	 */
 	public String getGender() {
 		return this.charGender;
 	}
 	
+	/**
+	 * sets character name
+	 * @param aName - string for character name
+	 */
 	public void setName(String aName) {
 		this.charName = aName;
 	}
 	
+	/**
+	 * sets character gender
+	 * @param aGender - string for character gender
+	 */
 	public void setGender(String aGender) {
 		this.charGender = aGender;
 	}
 	
+	/**
+	 * main method, calls gameLoop() method to start
+	 * receiving input
+	 * @param args
+	 */
 	public static void main(String[] args) {
 		Controller player1 = new Controller(null, null);
 		player1.gameLoop();

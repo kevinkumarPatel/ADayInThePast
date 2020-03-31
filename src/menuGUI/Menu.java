@@ -33,8 +33,13 @@ import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 
+/**
+ * @author Filip Cotra, Theodore Lun
+ * GUI application for information menu, buttons and text
+ * fields to take in information about character that 
+ * player enters
+ */
 public class Menu extends Application{
-	//GUI instance variables
 	TextField nameField = new TextField("");
 	String defaultAttribute = "Default";
 	Button genderMale = new Button("Male");
@@ -46,32 +51,30 @@ public class Menu extends Application{
 	Label genderLabel = new Label("Choose a Gender");
 	Label finishedCheck = new Label("Are you finished creating your character?");
 	Stage primaryStage = new Stage();
-	
-	//class object
 	Controller player1 = new Controller(defaultAttribute, defaultAttribute);
 	
-	//GUI start. Following code was taken and modified from Assignment 6
-	//https://d2l.ucalgary.ca/d2l/le/content/295245/Home
+	/**
+	 * GUI start method to open application. Following code  
+	 * was taken and modified from Assignment 6
+	 * //https://d2l.ucalgary.ca/d2l/le/content/295245/Home
+	 */
 	@Override 
 	public void start(Stage primaryStage) {
 		try {
 			BorderPane root = new BorderPane();
 			Scene scene = new Scene(root,400,200);
 			
-			// layout stuff
 			FlowPane mainPane = new FlowPane();
 			mainPane.setPadding(new Insets(10, 10, 10, 10));
 			mainPane.setVgap(5);
 				
-			// build the first two rows of widgets
 			mainPane.getChildren().add(askName);
 			mainPane.getChildren().add(this.buildNameRow());
 			mainPane.getChildren().add(genderLabel);
 			mainPane.getChildren().add(this.buildGenderRow());
 			mainPane.getChildren().add(finishedCheck);
 			mainPane.getChildren().add(this.buildContinueRow());
-
-			// get everything ready to show then show it			
+			
 			root.getChildren().add(mainPane);
 			primaryStage.setTitle("CPSC233_Project");
 			primaryStage.setScene(scene);
@@ -82,8 +85,12 @@ public class Menu extends Application{
 		}
 	}
 		
-	//HBox. If male button is pressed, set character gender to male
-	//if female button is pressed, set character gender to female
+	/**
+	 * builds HBox with buttons to choose character gender,
+	 * makes buttons for male and female and handles events
+	 * for these buttons to set characteristics of character class
+	 * @return
+	 */
 	public HBox buildGenderRow() {
 		HBox genderRow = new HBox();
 		genderMale.setOnAction(new EventHandler<ActionEvent>(){
@@ -104,6 +111,13 @@ public class Menu extends Application{
 		return genderRow;
 	}
 		
+	/**
+	 * builds HBox for yes and no buttons asking whether
+	 * it is ok for the game to be started. If yes is
+	 * pressed, the game will be started by starting the map
+	 * GUI and the game loop
+	 * @return
+	 */
 	public HBox buildContinueRow() {
 		HBox continueRow = new HBox();
 		continueYes.setOnAction(new EventHandler<ActionEvent>(){
@@ -124,6 +138,12 @@ public class Menu extends Application{
 		return continueRow;
 	}
 
+	/**
+	 * builds HBox with text field for name entry,
+	 * sets character name to entered name after presssing
+	 * of update button
+	 * @return
+	 */
 	public HBox buildNameRow() {
 		HBox nameBox = new HBox();
 		updateButton.setOnAction(new EventHandler<ActionEvent>(){

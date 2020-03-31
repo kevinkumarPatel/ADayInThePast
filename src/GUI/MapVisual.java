@@ -39,6 +39,12 @@ import java.util.TimerTask;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.layout.VBox;
 
+/**
+ * @author Filip Cotra, Theodore Lun
+ * MapVisual class is an application that displays the character
+ * map being used, reflecting the current position being loaded through
+ * scenes. New scenes are created to reflect changes in the map
+ */
 public class MapVisual extends Application
 {	
 	Character charStartPos = new Character(null, null);	
@@ -50,6 +56,13 @@ public class MapVisual extends Application
 	Pane backGroundPane;
 	StackPane gamePane;
 	Scene mainScene;
+	int BOULDER = -1;
+	int TREE = -2;
+	int WALL = -3;
+	int OPEN = 0;
+	int EVIDENCE = 1;
+	int POWERUP = 2;
+	int EXIT = 3;
 	Image charSprite = new Image("CHARACTER.png");
 	Image groundSprite = new Image("GRASS.png");
 	Image powerUpSprite = new Image("POWERUP.png");
@@ -59,10 +72,19 @@ public class MapVisual extends Application
 	Image evidenceSprite = new Image("EVIDENCE.png");
 	Image exitSprite = new Image("EXIT.png");
 	
+	/**
+	 * set map method to be specifically used to set the map
+	 * to its initial state
+	 * @param map - double array representing a map
+	 */
 	public void setInitialMap(int[][] map) {
 		this.loadedMap = map;
 	}
 	
+	/**
+	 * start method for application, creates stage and calls
+	 * methods to make scenes
+	 */
 	@Override
 	public void start(Stage primaryStage) {
 		this.mainStage = primaryStage;
@@ -71,14 +93,14 @@ public class MapVisual extends Application
 		this.mainStage.show();        
 	}
 
-	int BOULDER = -1;
-	int TREE = -2;
-	int WALL = -3;
-	int OPEN = 0;
-	int EVIDENCE = 1;
-	int POWERUP = 2;
-	int EXIT = 3;
-				
+	/**
+	 * to be called when an action is taken in order to load a new map,
+	 * will call appropriate methods to update scene on the 
+	 * main stage
+	 * @param currentMap - double array for map in its current state
+	 * @param charX - character x coordinate
+	 * @param charY - character y coordinate
+	 */
 	public void loadMap(int[][] currentMap, int charX, int charY) {
 		this.charY = charY;
 		this.charX = charX;
@@ -86,27 +108,57 @@ public class MapVisual extends Application
 		(this.getStage()).setScene(this.makeScene(this.charX, this.charY));
 	}
 	
+	/**
+	 * signifies ending of game, sets scene to be appropriate game 
+	 * over message
+	 * @param message - string for appropriate ending message
+	 */
 	public void gameOver(String message) {
 		(this.getStage()).setScene(this.makeScene(message));
 	}
 	
+	/**
+	 * returns new stack pane
+	 * @return
+	 */
 	public StackPane getPane() {
 		return new StackPane();
 	}
 	
+	/**
+	 * returns main stage to allow modifications
+	 * @return
+	 */
 	public Stage getStage() {
 		return this.mainStage;
 	}
 	
+	/**
+	 * returns mainScene
+	 * @return
+	 */
 	public Scene getScene() {
 		return this.mainScene;
 	}
 	
+	/**
+	 * make scene message, used for game over screen
+	 * @param message - string for message to be displayed
+	 * @return
+	 */
 	public Scene makeScene(String message) {
 		System.out.println(message);
 		return new Scene(new Pane(), 300, 300, Color.BLACK);
 	}
 	
+	/**
+	 * overloads makeScene for non-gameover scenes, updates 
+	 * scene to reflect current map with any alterations such as
+	 * character position on map
+	 * @param charX - character x coordinate
+	 * @param charY - character y coordinate
+	 * @return
+	 */
 	public Scene makeScene(int charX, int charY) {
 	   	GridPane grid = new GridPane();
 	   	mainGrid = grid;
@@ -185,10 +237,18 @@ public class MapVisual extends Application
         return mainScene;
 	}
 		
+	/**
+	 * returns loaded map
+	 * @return
+	 */
 	public int [][] mapdesign(){
 	    return this.loadedMap;
 	}
 	    
+	/**
+	 * main method, launches application
+	 * @param args
+	 */
 	public static void main(String[] args) {
 		launch(args);
 	}

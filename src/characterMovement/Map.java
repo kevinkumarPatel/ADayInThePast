@@ -1,8 +1,9 @@
 package characterMovement;
 
-//class map contains constants for all items that will be on the map,
-//as well as 2d arrays for maps themselves. 3d array contains these maps
-//so that the Game class can iterate through them
+/**class map contains constants for all items that will be on the map other than character,
+ *as well as 2d arrays for maps themselves. 3d array contains these maps
+ *so that it can be iterated through for loading 
+ */
 public abstract class Map{
 	final static int BOULDER = -1;
 	final static int TREE = -2;
@@ -76,12 +77,22 @@ public abstract class Map{
 	
 	int levelCount = 0;
 	
+	/**
+	 * returns map associated with level count
+	 * @return
+	 */
 	public int[][] getMap(){
 		return maps[levelCount];
 	}
 	
+	/**
+	 * signifies that the level has been completed, increases level count
+	 * and returns the resulting map
+	 * @return
+	 */
 	public int[][] reachedExit(){
 		this.levelCount++;
 		return maps[levelCount];
 	}
+	
 }
