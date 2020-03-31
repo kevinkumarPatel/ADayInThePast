@@ -25,6 +25,7 @@ public class Controller{
 	String charName;
 	MapVisual showMap = new MapVisual();
 	Collectibles player1;
+	Collectibles player2;
 	
 	/**
 	 * Constructor creates object of collectibles to allow
@@ -32,6 +33,7 @@ public class Controller{
 	 */
 	public Controller(String name, String gender) {
 		this.player1 = new Collectibles(name, gender);
+		this.player2 = new Collectibles(player1);
 	}
 	
 	/**
@@ -47,7 +49,7 @@ public class Controller{
 	 *at which point a new map will be loaded
 	 */
 	public void gameLoop() {
-		showMap.loadMap(player1.getMap(), player1.getX(), player1.getY());
+		showMap.loadMap(player1.getMap(), player1.getX(), player1.getY(), player2.getEnemyX(), player2.getEnemyY());
 		if (player1.isFinished()) {
 			if (player1.getEvidenceCount() >= 3) {
 				showMap.gameOver("Congratulations, You Win!");
@@ -64,7 +66,7 @@ public class Controller{
 			    	if(event.getCode() == KeyCode.D) {
 			    		player1.isOpenRight();
 			    		player1.gotPowerUp();
-			    		showMap.loadMap(player1.getMap(), player1.getX(), player1.getY());
+			    		showMap.loadMap(player1.getMap(), player1.getX(), player1.getY(), player2.getEnemyX(), player2.getEnemyY());
 			    		try{
 			    			Thread.sleep(player1.getDelay());
 			    			gameLoop();
@@ -75,7 +77,7 @@ public class Controller{
 			    	else if(event.getCode() == KeyCode.A){
 			    		player1.isOpenLeft();
 			    		player1.gotPowerUp();
-			    		showMap.loadMap(player1.getMap(), player1.getX(), player1.getY());
+			    		showMap.loadMap(player1.getMap(), player1.getX(), player1.getY(), player2.getEnemyX(), player2.getEnemyY());
 			    		try{
 			    			Thread.sleep(player1.getDelay());
 			    			gameLoop();
@@ -86,7 +88,7 @@ public class Controller{
 			    	else if(event.getCode() == KeyCode.W) {
 			    		player1.isOpenUp();
 			    		player1.gotPowerUp();
-			    		showMap.loadMap(player1.getMap(), player1.getX(), player1.getY());
+			    		showMap.loadMap(player1.getMap(), player1.getX(), player1.getY(), player2.getEnemyX(), player2.getEnemyY());
 			    		try{
 			    			Thread.sleep(player1.getDelay());
 			    			gameLoop();
@@ -97,7 +99,7 @@ public class Controller{
 			    	else if(event.getCode() == KeyCode.S){
 			    		player1.isOpenDown();
 			    		player1.gotPowerUp();
-			    		showMap.loadMap(player1.getMap(), player1.getX(), player1.getY());
+			    		showMap.loadMap(player1.getMap(), player1.getX(), player1.getY(), player2.getEnemyX(), player2.getEnemyY());
 			    		try{
 			    			Thread.sleep(player1.getDelay());
 			    			gameLoop();
@@ -105,14 +107,72 @@ public class Controller{
 			    		catch(InterruptedException ex) {
 			    		}
 			        }
-			    	else if(event.getCode() == KeyCode.K) {
+			    	else if(event.getCode() == KeyCode.Q) {
 			    		player1.cutTree();
-			    		showMap.loadMap(player1.getMap(), player1.getX(), player1.getY());
+			    		showMap.loadMap(player1.getMap(), player1.getX(), player1.getY(), player2.getEnemyX(), player2.getEnemyY());
 			    		gameLoop();
 			    	}
-			    	else if(event.getCode() == KeyCode.SPACE) {
+			    	else if(event.getCode() == KeyCode.E) {
 			    		player1.gotEvidence();
-			    		showMap.loadMap(player1.getMap(), player1.getX(), player1.getY());
+			    		showMap.loadMap(player1.getMap(), player1.getX(), player1.getY(), player2.getEnemyX(), player2.getEnemyY());
+			    		gameLoop();
+			    	}
+			    	else if(event.getCode() == KeyCode.UP) {
+			    		player2.enemyMoveUp();
+			    		player2.enemyGotPowerUp();
+			    		showMap.loadMap(player1.getMap(), player1.getX(), player1.getY(), player2.getEnemyX(), player2.getEnemyY());
+			    		gameLoop();
+			    		try{
+			    			Thread.sleep(player2.getEnemyDelay());
+			    			gameLoop();
+			    		}
+			    		catch(InterruptedException ex) {
+			    		}
+			    	}
+			    	else if(event.getCode() == KeyCode.DOWN) {
+			    		player2.enemyMoveDown();
+			    		player2.enemyGotPowerUp();
+			    		showMap.loadMap(player1.getMap(), player1.getX(), player1.getY(), player2.getEnemyX(), player2.getEnemyY());
+			    		gameLoop();
+			    		try{
+			    			Thread.sleep(player2.getEnemyDelay());
+			    			gameLoop();
+			    		}
+			    		catch(InterruptedException ex) {
+			    		}
+			    	}
+			    	else if(event.getCode() == KeyCode.LEFT) {
+			    		player2.enemyMoveLeft();
+			    		player2.enemyGotPowerUp();
+			    		showMap.loadMap(player1.getMap(), player1.getX(), player1.getY(), player2.getEnemyX(), player2.getEnemyY());
+			    		gameLoop();
+			    		try{
+			    			Thread.sleep(player2.getEnemyDelay());
+			    			gameLoop();
+			    		}
+			    		catch(InterruptedException ex) {
+			    		}
+			    	}
+			    	else if(event.getCode() == KeyCode.RIGHT) {
+			    		player2.enemyMoveRight();
+			    		player2.enemyGotPowerUp();
+			    		showMap.loadMap(player1.getMap(), player1.getX(), player1.getY(), player2.getEnemyX(), player2.getEnemyY());
+			    		gameLoop();
+			    		try{
+			    			Thread.sleep(player2.getEnemyDelay());
+			    			gameLoop();
+			    		}
+			    		catch(InterruptedException ex) {
+			    		}
+			    	}
+			    	else if(event.getCode() == KeyCode.ENTER) {
+			    		player2.enemyCutTree();
+			    		showMap.loadMap(player1.getMap(), player1.getX(), player1.getY(), player2.getEnemyX(), player2.getEnemyY());
+			    		gameLoop();
+			    	}
+			    	else if(event.getCode() == KeyCode.SHIFT) {
+			    		player2.enemyGotEvidence();
+			    		showMap.loadMap(player1.getMap(), player1.getX(), player1.getY(), player2.getEnemyX(), player2.getEnemyY());
 			    		gameLoop();
 			    	}
 				} 	  

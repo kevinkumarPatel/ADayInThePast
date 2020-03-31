@@ -2,6 +2,7 @@ package thingsOnMap;
 
 import java.util.ArrayList;
 import characterMovement.Character;
+import characterMovement.Enemy;
 
 /**
  * @author Filip Cotra, Theodore Lun
@@ -12,6 +13,7 @@ import characterMovement.Character;
 public class Position{
 	int charPosition;
 	Character player1;
+	Enemy player2;
 	int[][] charMap;
 	
 	/**
@@ -27,6 +29,10 @@ public class Position{
 		this.setPos();
 	}
 
+	public Position(Collectibles player1) {
+		player2 = new Enemy(player1.getMap(), player1.player1);
+	}
+
 	/**
 	 * checks position of a certain grid point. If an 
 	 * exception is thrown due to leaving array bounds,
@@ -37,7 +43,18 @@ public class Position{
 	 */
 	public int checkPos(int checkX, int checkY) {
 		try {
-			return (player1.getMap())[checkX][checkY];
+			int[][] tempMap = this.getMap();
+			return tempMap[checkX][checkY];
+		}
+		catch(Exception ArrayIndexOutOfBounds) {
+			return 20;
+		}
+	}
+	
+	public int checkPos(int checkX, int checkY, int[][] aMap) {
+		try {
+			int[][] tempMap = aMap;
+			return tempMap[checkX][checkY];
 		}
 		catch(Exception ArrayIndexOutOfBounds) {
 			return 20;
@@ -50,7 +67,7 @@ public class Position{
 	 */
 	public void setPos() {
 		this.charMap = player1.getMap();
-		this.charPosition = charMap[player1.getX()][player1.getY()];
+		this.charPosition = this.charMap[player1.getX()][player1.getY()];
 	}
 	
 	/**
@@ -61,8 +78,8 @@ public class Position{
 		player1.setDirection("Up");
 		try {
 			if (this.checkPos(player1.getX(),  player1.getY() - 1) == player1.returnOpen()|| this.checkPos(player1.getX(), player1.getY() - 1) == player1.returnExit() ||
-					this.checkPos(player1.getX(), player1.getY() - 1) == player1.returnPowerUp() || this.checkPos(player1.getX(), player1.getY() - 1) == player1.returnEvidence() ||
-					this.checkPos(player1.getX(), player1.getY() - 1) == player1.returnFinished()){
+				this.checkPos(player1.getX(), player1.getY() - 1) == player1.returnPowerUp() || this.checkPos(player1.getX(), player1.getY() - 1) == player1.returnEvidence() ||
+				this.checkPos(player1.getX(), player1.getY() - 1) == player1.returnFinished()){
 				player1.moveUp();
 				this.setPos();
 			}
@@ -71,6 +88,7 @@ public class Position{
 			if (this.isDone()) {
 				player1.setX(2);
 				player1.setY(2);
+				this.charPosition = player1.returnOpen();
 				player1.setMap(player1.reachedExit());
 			}
 		}
@@ -86,8 +104,8 @@ public class Position{
 		player1.setDirection("Down");
 		try {
 			if (this.checkPos(player1.getX(),  player1.getY() + 1) == player1.returnOpen()|| this.checkPos(player1.getX(), player1.getY() + 1) == player1.returnExit() ||
-					this.checkPos(player1.getX(), player1.getY() + 1) == player1.returnPowerUp() || this.checkPos(player1.getX(), player1.getY() + 1) == player1.returnEvidence() ||
-					this.checkPos(player1.getX(), player1.getY() + 1) == player1.returnFinished()){
+				this.checkPos(player1.getX(), player1.getY() + 1) == player1.returnPowerUp() || this.checkPos(player1.getX(), player1.getY() + 1) == player1.returnEvidence() ||
+				this.checkPos(player1.getX(), player1.getY() + 1) == player1.returnFinished()){
 				player1.moveDown();
 				this.setPos();
 			}
@@ -96,6 +114,7 @@ public class Position{
 			if (this.isDone()) {
 				player1.setX(2);
 				player1.setY(2);
+				this.charPosition = player1.returnOpen();
 				player1.setMap(player1.reachedExit());
 			}
 		}
@@ -111,8 +130,8 @@ public class Position{
 		player1.setDirection("Right");
 		try {
 			if (this.checkPos(player1.getX() + 1,  player1.getY()) == player1.returnOpen()|| this.checkPos(player1.getX() + 1, player1.getY()) == player1.returnExit() ||
-					this.checkPos(player1.getX() + 1, player1.getY()) == player1.returnPowerUp() || this.checkPos(player1.getX() + 1, player1.getY()) == player1.returnEvidence() ||
-					this.checkPos(player1.getX() + 1, player1.getY()) == player1.returnFinished()){
+				this.checkPos(player1.getX() + 1, player1.getY()) == player1.returnPowerUp() || this.checkPos(player1.getX() + 1, player1.getY()) == player1.returnEvidence() ||
+				this.checkPos(player1.getX() + 1, player1.getY()) == player1.returnFinished()){
 				player1.moveRight();
 				this.setPos();
 			}
@@ -121,6 +140,7 @@ public class Position{
 			if (this.isDone()) {
 				player1.setX(2);
 				player1.setY(2);
+				this.charPosition = player1.returnOpen();
 				player1.setMap(player1.reachedExit());
 			}
 		}
@@ -136,8 +156,8 @@ public class Position{
 		player1.setDirection("Left");
 		try {
 			if (this.checkPos(player1.getX() - 1,  player1.getY()) == player1.returnOpen()|| this.checkPos(player1.getX() - 1, player1.getY()) == player1.returnExit() ||
-					this.checkPos(player1.getX() - 1, player1.getY()) == player1.returnPowerUp() || this.checkPos(player1.getX() - 1, player1.getY()) == player1.returnEvidence() ||
-					this.checkPos(player1.getX() - 1, player1.getY()) == player1.returnFinished()){
+				this.checkPos(player1.getX() - 1, player1.getY()) == player1.returnPowerUp() || this.checkPos(player1.getX() - 1, player1.getY()) == player1.returnEvidence() ||
+				this.checkPos(player1.getX() - 1, player1.getY()) == player1.returnFinished()){
 				player1.moveLeft();
 				this.setPos();
 			}
@@ -146,6 +166,7 @@ public class Position{
 			if (this.isDone()) {
 				player1.setX(2);
 				player1.setY(2);
+				this.charPosition = player1.returnOpen();
 				player1.setMap(player1.reachedExit());
 			}
 		}
@@ -217,6 +238,86 @@ public class Position{
 	 */
 	public int getY() {
 		return player1.getY();
+	}
+	
+	public void enemyMoveUp() {
+		player2.setDirection("Up");
+		try {
+			if (this.checkPos(player2.getEnemyX(),  player2.getEnemyY() - 1, player2.getEnemyMap()) == player2.returnOpen()||
+				this.checkPos(player2.getEnemyX(), player2.getEnemyY() - 1, player2.getEnemyMap()) == player2.returnPowerUp()|| 
+				this.checkPos(player2.getEnemyX(), player2.getEnemyY() - 1, player2.getEnemyMap()) == player2.returnEvidence()){
+				player2.enemyMoveUp();
+				player2.setEnemyPos();
+			}
+			else {
+			}
+		}
+		catch(Exception ArrayIndexOutOfBounds){
+		}
+	}
+	
+	public void enemyMoveDown() {
+		player2.setDirection("Down");
+		try {
+			if (this.checkPos(player2.getEnemyX(),  player2.getEnemyY() + 1, player2.getEnemyMap()) == player2.returnOpen()||
+				this.checkPos(player2.getEnemyX(), player2.getEnemyY() + 1, player2.getEnemyMap()) == player2.returnPowerUp() || 
+				this.checkPos(player2.getEnemyX(), player2.getEnemyY() + 1, player2.getEnemyMap()) == player2.returnEvidence()){
+				player2.enemyMoveDown();
+				player2.setEnemyPos();
+			}
+			else {
+			}
+		}
+		catch(Exception ArrayIndexOutOfBounds){
+		}
+	}
+	
+	public void enemyMoveRight() {
+		player2.setDirection("Right");
+		try {
+			if (this.checkPos(player2.getEnemyX() + 1,  player2.getEnemyY(), player2.getEnemyMap()) == player2.returnOpen()||
+				this.checkPos(player2.getEnemyX() + 1, player2.getEnemyY(), player2.getEnemyMap()) == player2.returnPowerUp()|| 
+				this.checkPos(player2.getEnemyX() + 1, player2.getEnemyY(), player2.getEnemyMap()) == player2.returnEvidence()){
+				player2.enemyMoveRight();
+				player2.setEnemyPos();
+			}
+			else {
+			}
+		}
+		catch(Exception ArrayIndexOutOfBounds){
+		}
+	}
+	
+	public void enemyMoveLeft() {
+		player2.setDirection("Left");
+		try {
+			if (this.checkPos(player2.getEnemyX() - 1,  player2.getEnemyY(), player2.getEnemyMap()) == player2.returnOpen()|| 
+					this.checkPos(player2.getEnemyX() - 1, player2.getEnemyY(), player2.getEnemyMap()) == player2.returnPowerUp() || 
+					this.checkPos(player2.getEnemyX() - 1, player2.getEnemyY(), player2.getEnemyMap()) == player2.returnEvidence()){
+				player2.enemyMoveLeft();
+				player2.setEnemyPos();
+			}
+			else {
+			}
+		}
+		catch(Exception ArrayIndexOutOfBounds){
+		}
+	}
+	
+	public int getEnemyX() {
+		return player2.getEnemyX();
+	}
+	
+	public int getEnemyY() {
+		return player2.getEnemyY();
+	}
+	
+	public void enemyCutTree() {
+		player2.enemyCutTree();
+	}
+	
+	public int getEnemyPos() {
+		return player2.getEnemyPos();
 	}
 }
 

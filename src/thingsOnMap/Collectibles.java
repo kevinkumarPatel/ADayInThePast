@@ -14,6 +14,14 @@ public class Collectibles extends Position{
 		super(charName, charGender);
 	}
 	
+	public Collectibles(Collectibles player1) {
+		super(player1);
+	}
+	
+	public int getEnemyDelay() {
+		return player2.getEnemyDelay();
+	}
+	
 	/**
 	 * checks if evidence is picked up, if so calls gotCollectible()
 	 * function from character to update count
@@ -35,7 +43,21 @@ public class Collectibles extends Position{
 	public void gotPowerUp(){
 		if (this.charPosition == player1.returnPowerUp()){
 			player1.setBlock(player1.getX(), player1.getY(), player1.returnOpen());
+			this.charPosition = player1.returnOpen();
 			player1.powerUp();
+		}
+	}
+	
+	public void enemyGotEvidence() {
+		if(this.getEnemyPos() == player2.returnEvidence()) {
+			player2.setBlock(player2.getEnemyX(), player2.getEnemyY(), player2.returnOpen());
+		}
+	}
+	
+	public void enemyGotPowerUp() {
+		if(this.getEnemyPos() == player2.returnPowerUp()) {
+			player2.setBlock(player2.getEnemyX(), player2.getEnemyY(), player2.returnOpen());
+			player2.powerUp();
 		}
 	}
 	

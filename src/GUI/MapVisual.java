@@ -50,6 +50,8 @@ public class MapVisual extends Application
 	Character charStartPos = new Character(null, null);	
 	int charX = charStartPos.getX();
 	int charY = charStartPos.getY();
+	int enemyX = 1;
+	int enemyY = 2;
 	int[][] loadedMap;
 	public Stage mainStage;
 	GridPane mainGrid;
@@ -71,6 +73,7 @@ public class MapVisual extends Application
 	Image boulderSprite = new Image("BOULDER.png");
 	Image evidenceSprite = new Image("EVIDENCE.png");
 	Image exitSprite = new Image("EXIT.png");
+	Image enemySprite = new Image("ENEMY.png");
 	
 	/**
 	 * set map method to be specifically used to set the map
@@ -89,7 +92,7 @@ public class MapVisual extends Application
 	public void start(Stage primaryStage) {
 		this.mainStage = primaryStage;
 		this.mainStage.setTitle("Grid World"); 
-		this.mainStage.setScene(this.makeScene(this.charX, this.charY));
+		this.mainStage.setScene(this.makeScene(this.charX, this.charY, this.enemyX, this.enemyY));
 		this.mainStage.show();        
 	}
 
@@ -101,11 +104,14 @@ public class MapVisual extends Application
 	 * @param charX - character x coordinate
 	 * @param charY - character y coordinate
 	 */
-	public void loadMap(int[][] currentMap, int charX, int charY) {
+	
+	public void loadMap(int[][] currentMap, int charX, int charY, int enemyX, int enemyY) {
 		this.charY = charY;
 		this.charX = charX;
+		this.enemyX = enemyX;
+		this.enemyY = enemyY;
 		this.loadedMap = currentMap;
-		(this.getStage()).setScene(this.makeScene(this.charX, this.charY));
+		(this.getStage()).setScene(this.makeScene(this.charX, this.charY, this.enemyX, this.enemyY));
 	}
 	
 	/**
@@ -159,7 +165,7 @@ public class MapVisual extends Application
 	 * @param charY - character y coordinate
 	 * @return
 	 */
-	public Scene makeScene(int charX, int charY) {
+	public Scene makeScene(int charX, int charY, int enemyX, int enemyY) {
 	   	GridPane grid = new GridPane();
 	   	mainGrid = grid;
 	   	Pane backgroundcolor = new Pane();
@@ -197,7 +203,6 @@ public class MapVisual extends Application
 	           		boulderBlock.setFill(new ImagePattern(this.boulderSprite));
 	           		backGroundPane.getChildren().add(boulderBlock);
 	           }
-
 	           if (mapdesign()[rows][columns] == OPEN || mapdesign()[rows][columns] == EVIDENCE || 
 	           	   mapdesign()[rows][columns] == POWERUP) {
 	            	if (rows == charX && columns == charY) {
@@ -208,7 +213,14 @@ public class MapVisual extends Application
 	            	else {
 	            	}
 	           }
-	    	
+	           if (mapdesign()[rows][columns] == OPEN || mapdesign()[rows][columns] == EVIDENCE || 
+		           	   mapdesign()[rows][columns] == POWERUP) {
+		            	if (rows == enemyX && columns == enemyY) {
+		    			   Rectangle enemy = new Rectangle(rows * 45, columns * 45, 45, 45);	    	
+		    			   enemy.setFill(new ImagePattern(this.enemySprite));
+		    			   backGroundPane.getChildren().add(enemy);
+		            	}
+	           }
 	    	}
 	    }
 	        
