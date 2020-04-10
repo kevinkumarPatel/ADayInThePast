@@ -94,43 +94,28 @@ public class Character extends Map{
 	 * in that direction, the tree is removed
 	 */
 	public void cutTree(){
-		/**
-		 * if character is facing up, checks if tree is above character,
-		 * changing positional value to OPEN if so
-		 */
 		if ((this.getDirection()).equalsIgnoreCase("Up")){
 			if (this.currentMap[this.getX()][this.getY() - 1] == this.TREE){
 				this.currentMap[this.getX()][this.getY() - 1] = this.OPEN;
+				System.out.println("You cut a tree!");
 			}
 		}
-		
-		/**
-		 * if character is facing down, checks if tree is below character,
-		 * changing positional value to OPEN if so
-		 */
 		else if ((this.getDirection()).equalsIgnoreCase("Down")){
 			if (this.currentMap[this.getX()][this.getY() + 1] == this.TREE){
 				this.currentMap[this.getX()][this.getY() + 1] = this.OPEN;
+				System.out.println("You cut a tree!");
 			}
 		}
-		
-		/**
-		 * if character is facing left, checks if tree is to the left of character,
-		 * changing positional value to OPEN if so
-		 */
 		else if ((this.getDirection()).equalsIgnoreCase("Left")){
 			if (this.currentMap[this.getX() - 1][this.getY()] == this.TREE){
 				this.currentMap[this.getX() - 1][this.getY()] = this.OPEN;
+				System.out.println("You cut a tree!");
 			}
 		}
-		
-		/**
-		 * if character is facing right, checks if tree is to the right of character,
-		 * changing positional value to OPEN if so
-		 */
 		else if ((this.getDirection()).equalsIgnoreCase("Right")){
 			if (this.currentMap[this.getX() + 1][this.getY()] == this.TREE){
 				this.currentMap[this.getX() + 1][this.getY()] = this. OPEN;
+				System.out.println("You cut a tree!");
 			}
 		}
 	}

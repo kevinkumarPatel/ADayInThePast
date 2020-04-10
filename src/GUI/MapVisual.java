@@ -2,42 +2,22 @@ package GUI;
 
 import characterMovement.Character;
 import javafx.application.Application;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.stage.Stage;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Alert.AlertType;
-import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
-import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.CornerRadii;
-import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.RowConstraints;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
-import javafx.scene.text.Text;
-import java.util.Timer;
-import java.util.TimerTask;
 import javafx.scene.paint.ImagePattern;
-import javafx.scene.layout.VBox;
 
 /**
  * @author Filip Cotra, Theodore Lun
@@ -47,6 +27,11 @@ import javafx.scene.layout.VBox;
  */
 public class MapVisual extends Application
 {	
+	/**
+	 * instance variables including a character object,
+	 * starting position coordinate values, status constants, and
+	 * grids, panes, scenes, and images
+	 */
 	Character charStartPos = new Character(null, null);	
 	int charX = charStartPos.getX();
 	int charY = charStartPos.getY();
@@ -104,7 +89,6 @@ public class MapVisual extends Application
 	 * @param charX - character x coordinate
 	 * @param charY - character y coordinate
 	 */
-	
 	public void loadMap(int[][] currentMap, int charX, int charY, int enemyX, int enemyY) {
 		this.charY = charY;
 		this.charX = charX;
@@ -170,39 +154,71 @@ public class MapVisual extends Application
 	   	mainGrid = grid;
 	   	Pane backgroundcolor = new Pane();
 	   	backGroundPane = backgroundcolor;
-		//https://stackoverflow.com/questions/42417123/player-character-not-adding-to-gridpane-javafx
-	    for (int rows = 0; rows < mapdesign().length; rows++) {	        	
+	   	/**
+	   	 * loop through every point on the map
+	   	 */
+	    for (int rows = 0; rows < mapdesign().length; rows++) {	   
 	    	for (int columns = 0; columns < mapdesign()[rows].length; columns++) {
+	    		/**
+	    		 * if map position equals TREE, make a tree rectangle with appropriate image
+	    		 * added to that position on the corresponding GUI map
+	    		 */
 	           if (mapdesign()[rows][columns] == TREE) {
 	           		Rectangle treeBlock = new Rectangle(rows * 45, columns * 45, 45, 45);
 	           		treeBlock.setFill(new ImagePattern(this.treeSprite));
 	           		backGroundPane.getChildren().add(treeBlock);
 	           }
+	    		/**
+	    		 * if map position equals EXIT, make an exit rectangle with appropriate image
+	    		 * added to that position on the corresponding GUI map
+	    		 */
 	           else if (mapdesign()[rows][columns] == EXIT) {
 	           		Rectangle exitBlock = new Rectangle(rows * 45, columns * 45, 45, 45);
 	           		exitBlock.setFill(new ImagePattern(this.exitSprite));
 	           		backGroundPane.getChildren().add(exitBlock);
 	           }
+	    		/**
+	    		 * if map position equals EVIDENCE, make an evidence rectangle added to that
+	    		 * position on the corresponding GUI map
+	    		 */
 	           else if (mapdesign()[rows][columns] == EVIDENCE) {
 	           		Rectangle exitBlock = new Rectangle(rows * 45, columns * 45, 45, 45);
 	           		exitBlock.setFill(new ImagePattern(this.evidenceSprite));
 	           		backGroundPane.getChildren().add(exitBlock);
 	           }
+	    		/**
+	    		 * if map position equals WALL, make a wall rectangle with appropriate image
+	    		 * added to that position on the corresponding GUI map
+	    		 */
 	           else if (mapdesign()[rows][columns] == WALL) {
 	           		Rectangle wallBlock = new Rectangle(rows * 45, columns * 45, 45, 45);
 	           		wallBlock.setFill(new ImagePattern(this.wallSprite));
 	           		backGroundPane.getChildren().add(wallBlock);
 	           }
+	    		/**
+	    		 * if map position equals POWERUP, make a powerup rectangle with appropriate image
+	    		 * added to that position on the corresponding GUI map
+	    		 */
 	           else if (mapdesign()[rows][columns] == POWERUP) {
 	           		Circle powerupBlock = new Circle(rows * 45 + 22.5, columns * 45 + 22.5, 22.5);
 	           		powerupBlock.setFill(new ImagePattern(this.powerUpSprite));
 	           		backGroundPane.getChildren().add(powerupBlock);
 	           }
+	    		/**
+	    		 * if map position equals BOULDER, make a boulder rectangle with appropriate image
+	    		 * added to that position on the corresponding GUI map
+	    		 */
 	           else if (mapdesign()[rows][columns] == BOULDER) {
 	           		Circle boulderBlock = new Circle(rows * 45 + 22.5, columns * 45 + 22.5, 22.5);
 	           		boulderBlock.setFill(new ImagePattern(this.boulderSprite));
 	           		backGroundPane.getChildren().add(boulderBlock);
 	           }
+	           
+	           /**
+	            * if map position is equal to OPEN, EVIDENCE, or POWERUP, and character coordinates
+	            * match current coordinates iterated through, create character rectangle with
+	            * appropriate image and add it to the map
+	            */
 	           if (mapdesign()[rows][columns] == OPEN || mapdesign()[rows][columns] == EVIDENCE || 
 	           	   mapdesign()[rows][columns] == POWERUP) {
 	            	if (rows == charX && columns == charY) {
@@ -213,6 +229,12 @@ public class MapVisual extends Application
 	            	else {
 	            	}
 	           }
+	           
+	           /**
+	            * if map position is equal to OPEN, EVIDENCE, or POWERUP, and enemy coordinates
+	            * match current coordinates iterated through, create enemy rectangle with
+	            * appropriate image and add it to the map
+	            */
 	           if (mapdesign()[rows][columns] == OPEN || mapdesign()[rows][columns] == EVIDENCE || 
 		           	   mapdesign()[rows][columns] == POWERUP) {
 		            	if (rows == enemyX && columns == enemyY) {
@@ -227,8 +249,14 @@ public class MapVisual extends Application
 	    int rows = mapdesign().length; // row
 	    int columns = mapdesign()[0].length; // col
 	    mainGrid.setBackground(new Background(new BackgroundFill(Color.TRANSPARENT, CornerRadii.EMPTY, Insets.EMPTY)));
+	    /**
+	     * set background pane background to represent all open positions on the map
+	     */
         backGroundPane.setBackground(new Background(new BackgroundFill(new ImagePattern(this.groundSprite), CornerRadii.EMPTY, Insets.EMPTY)));
-            
+           
+        /**
+         * add rows and columns to the main grid
+         */
         for (int i = 0; i < columns; i++) {
             ColumnConstraints columnn = new ColumnConstraints(45);
             mainGrid.getColumnConstraints().add(columnn);    	
@@ -240,6 +268,10 @@ public class MapVisual extends Application
         
         mainGrid.setGridLinesVisible(false);
         
+        /**
+         * add both background pane and main grid to stackpane with main grid on
+         * top
+         */
 	   	StackPane gamePane = new StackPane();
 	    gamePane.getChildren().addAll(backGroundPane, mainGrid);
         

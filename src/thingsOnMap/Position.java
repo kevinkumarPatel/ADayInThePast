@@ -51,6 +51,15 @@ public class Position{
 		}
 	}
 	
+	/**
+	 * overloads checkPos method to include map to check,
+	 * used for checking enemy position due to solve null 
+	 * pointer exceptions when using previous method
+	 * @param checkX - x coordinate to be checked
+	 * @param checkY - y coordinate to be checked
+	 * @param aMap - map to check space on
+	 * @return
+	 */
 	public int checkPos(int checkX, int checkY, int[][] aMap) {
 		try {
 			int[][] tempMap = aMap;
@@ -68,6 +77,22 @@ public class Position{
 	public void setPos() {
 		this.charMap = player1.getMap();
 		this.charPosition = this.charMap[player1.getX()][player1.getY()];
+	}
+	
+	/**
+	 * sets enemy x coordinate
+	 * @param X - x coordinate to be set
+	 */
+	public void setEnemyX(int X) {
+		player2.setEnemyX(X);
+	}
+	
+	/**
+	 * sets enemy y coordinate
+	 * @param Y - y coordinate to be set
+	 */
+	public void setEnemyY(int Y) {
+		player2.setEnemyY(Y);
 	}
 	
 	/**
@@ -240,6 +265,10 @@ public class Position{
 		return player1.getY();
 	}
 	
+	/**
+	 * checks if space is open, if so calls enemyMoveUp() and setEnemyPos()
+	 * to move enemy position and update enemy position value on map
+	 */
 	public void enemyMoveUp() {
 		player2.setDirection("Up");
 		try {
@@ -256,6 +285,10 @@ public class Position{
 		}
 	}
 	
+	/**
+	 * checks if space is open, if so calls enemyMoveUp() and setEnemyPos()
+	 * to move enemy position and update enemy position value on map
+	 */
 	public void enemyMoveDown() {
 		player2.setDirection("Down");
 		try {
@@ -272,6 +305,10 @@ public class Position{
 		}
 	}
 	
+	/**
+	 * checks if space is open, if so calls enemyMoveUp() and setEnemyPos()
+	 * to move enemy position and update enemy position value on map
+	 */
 	public void enemyMoveRight() {
 		player2.setDirection("Right");
 		try {
@@ -288,6 +325,10 @@ public class Position{
 		}
 	}
 	
+	/**
+	 * checks if space is open, if so calls enemyMoveUp() and setEnemyPos()
+	 * to move enemy position and update enemy position value on map
+	 */
 	public void enemyMoveLeft() {
 		player2.setDirection("Left");
 		try {
@@ -304,18 +345,34 @@ public class Position{
 		}
 	}
 	
+	/**
+	 * returns enemy x coordinate
+	 * @return
+	 */
 	public int getEnemyX() {
 		return player2.getEnemyX();
 	}
 	
+	/**
+	 * returns enemy y coordinate
+	 * @return
+	 */
 	public int getEnemyY() {
 		return player2.getEnemyY();
 	}
 	
+	/**
+	 * calls enemyCutTree() to allow enemy to cut down
+	 * trees
+	 */
 	public void enemyCutTree() {
 		player2.enemyCutTree();
 	}
 	
+	/**
+	 * returns enemy position value
+	 * @return
+	 */
 	public int getEnemyPos() {
 		return player2.getEnemyPos();
 	}

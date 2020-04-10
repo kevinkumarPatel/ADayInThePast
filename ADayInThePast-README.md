@@ -21,21 +21,32 @@ INSTALLATION
 5. Add "--module-path="C:\Program Files\Java\javafx-sdk-11.0.2\lib" --add-modules=javafx.controls,javafx.fxml" to VM arguments
 6. Run the configuration to play the game.
 
-GAME CONTROLS
+GUI GAME CONTROLS
 
 Primary Player Controls:
 Enter name with keyboard, select options with mouse input.
 Use WASD keys in order to move the character and navigate the game map.
-K can be pressed in order to cut down a tree.
-SPACEBAR can be pressed in order to dig at evidence location.
+Q can be pressed in order to cut down a tree.
+E can be pressed in order to dig at evidence location.
 Your goal is to collect as much evidence from the primary player as possible, int order to win the game.
 
 Enemy Player Controls:
 Use arrow keys in order to move the enemy and navigate the map.
-K can be pressed in order to cut down a tree.
-SPACEBAR can be pressed in order to dig at evidence location.
+ENTER can be pressed in order to cut down a tree.
+SHIFT can be pressed in order to dig at evidence location.
 Your goal is to "steal" as much evidence from the primary player as possible, in order to make them lose the game.
 
+________________________________________________________________________________________
+
+TEXT VERSION GAME CONTROLS
+
+When prompted for input enter:
+"move up" - move character up
+"move down" - move character down
+"move left" - move character left
+"move right" - move character right
+"cut" - cut down tree
+"dig" - dig for evidence
 
 AUTHORS
-Filip, Theo, Pawan, Uijin, and Kevin
+Filip Cotra and Theodore Lun

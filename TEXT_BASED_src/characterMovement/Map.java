@@ -5,11 +5,6 @@ package characterMovement;
  *so that it can be iterated through for loading 
  */
 public abstract class Map{
-	/**
-	 * instance variables for each status (OPEN, BOULDER, etc.),
-	 * as well as each map (map1, map2, etc.), and an array (maps)
-	 * containing each map
-	 */
 	final static int BOULDER = -1;
 	final static int TREE = -2;
 	final static int WALL = -3;
